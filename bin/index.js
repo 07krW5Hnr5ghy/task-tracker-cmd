@@ -28,7 +28,7 @@ const writeTasks = (tasks) => {
 // tasks operations
 const addTask = (description) => {
     const tasks = readTasks();
-    const id = tasks.length ? tasks[tasks.lenght-1].id + 1 : 1;
+    const id = tasks.length ? tasks[tasks.length-1].id + 1 : 1;
     const newTask = {
         id,
         description,
@@ -39,6 +39,23 @@ const addTask = (description) => {
     tasks.push(newTask);
     writeTasks(tasks);
     console.log(`Task added successfully (ID:${id})`);
+}
+
+const listTasks = (filter='all') => {
+    const tasks = readTasks();
+    const filteredTasks = filter === 'all'
+    ? tasks
+    : tasks.filter((task) => task.status === filter);
+    if(!filteredTasks.length){
+        console.log(`No tasks found with status: ${filter}`);
+        return;
+    }
+    console.log('Tasks:');
+    filteredTasks.forEach((task) => {
+        console.log(
+            `ID: ${task.id}, Description: "${task.description}", Status: ${task.status}, Updated: ${task.updatedAt}`
+        );
+    });
 }
 
 
@@ -52,6 +69,9 @@ const main = () => {
             }else{
                 console.log('Usage: task-cli add "Task Description"');
             }
+            break;
+        case 'list':
+            listTasks(args[0]||'all');
             break;
         default:
             console.log(`
