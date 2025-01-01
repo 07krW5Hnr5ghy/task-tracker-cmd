@@ -5,5 +5,12 @@
     "status": "done",
     "createdAt": "2025-01-01T02:58:17.548Z",
     "updatedAt": "2025-01-01T02:59:42.302Z"
+  },
+  {
+    "id": 2,
+    "description": "throw trash into the shutter",
+    "status": "todo",
+    "createdAt": "2025-01-01T03:02:58.815Z",
+    "updatedAt": "2025-01-01T03:02:58.816Z"
   }
 ]
