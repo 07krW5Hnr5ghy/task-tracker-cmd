@@ -8,7 +8,7 @@ const JSON_FILE = path.resolve(process.cwd(),'tasks.json');
 // tasks statuses
 const STATUSES = {
     todo:"todo",
-    inProgress:"in progress",
+    inProgress:"in-progress",
     done:"done"
 };
 
@@ -71,6 +71,17 @@ const updateTask = (id,description) => {
     console.log(`Task with ID ${id} updated successfully.`);
 }
 
+const deleteTask = (id) => {
+    const tasks = readTasks();
+    const updatedTasks = tasks.filter((task) => task.id !== parseInt(id,10));
+    if(tasks.length===updatedTasks.length){
+        console.log(`Tasks with ID ${id} not found.`);
+        return;
+    }
+    writeTasks(updatedTasks);
+    console.log(`Tasks with ID ${id} deleted successfully.`);
+}
+
 
 // CLI handler
 const main = () => {
@@ -91,6 +102,13 @@ const main = () => {
                 updateTask(args[0],args[1]);
             }else{
                 console.log('Usage: task-cli update <Task ID> "New Description');
+            }
+            break;
+        case 'delete':
+            if(args.length===1){
+                deleteTask(args[0]);
+            }else{
+                console.log('Usage: task-cli delete <Task ID>');
             }
             break;
         default:
