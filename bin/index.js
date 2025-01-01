@@ -82,6 +82,19 @@ const deleteTask = (id) => {
     console.log(`Tasks with ID ${id} deleted successfully.`);
 }
 
+const markTask = (id,status) => {
+    const tasks = readTasks();
+    const task = tasks.find((task) => task.id === parseInt(id,10));
+    if(!task){
+        console.log(`Task with ID ${id} not found.`);
+        return;
+    }
+    task.status = status;
+    task.updatedAt = new Date().toISOString();
+    writeTasks(tasks);
+    console.log(`Task with ID ${id} marked as ${status}.`);
+}
+
 
 // CLI handler
 const main = () => {
@@ -109,6 +122,20 @@ const main = () => {
                 deleteTask(args[0]);
             }else{
                 console.log('Usage: task-cli delete <Task ID>');
+            }
+            break;
+        case 'mark-in-progress':
+            if(args.length===1){
+                markTask(args[0],STATUSES.inProgress);
+            }else{
+                console.log('Usage: task-cli mark-in-progress <Task ID>');
+            }
+            break;
+        case 'mark-done':
+            if(args.length===1){
+                markTask(args[0],STATUSES.done);
+            }else{
+                console.log('Usage: task-cli mark-done <Task ID>');
             }
             break;
         default:
