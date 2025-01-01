@@ -58,6 +58,19 @@ const listTasks = (filter='all') => {
     });
 }
 
+const updateTask = (id,description) => {
+    const tasks = readTasks();
+    const task = tasks.find((task) => task.id === parseInt(id,10));
+    if(!task){
+        console.log(`Task with ID ${id} not found.`);
+        return;
+    }
+    task.description = description;
+    task.updatedAt = new Date().toISOString();
+    writeTasks(tasks);
+    console.log(`Task with ID ${id} updated successfully.`);
+}
+
 
 // CLI handler
 const main = () => {
@@ -72,6 +85,13 @@ const main = () => {
             break;
         case 'list':
             listTasks(args[0]||'all');
+            break;
+        case 'update':
+            if(args.length===2){
+                updateTask(args[0],args[1]);
+            }else{
+                console.log('Usage: task-cli update <Task ID> "New Description');
+            }
             break;
         default:
             console.log(`
