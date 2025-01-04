@@ -17,6 +17,7 @@ A simple command-line interface (CLI) tool to track and manage your tasks. This 
 ```bash
 git clone https://github.com/07krW5Hnr5ghy/task-tracker-cmd
 cd task-tracker-cmd
+npm install -g .
 ```
 
 ## **Usage**
